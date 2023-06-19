@@ -1,0 +1,76 @@
+﻿@page "/tickets"
+@using SupportTickets.Models
+@using SupportTickets.Data
+@inject TicketDBContext _context
+@inject NavigationManager _navigator
+<PageTitle>Tickets</PageTitle>
+
+<h1>Counter</h1>
+<tr class="table table-bordered border-3">
+    
+    <td class="border-1 p-2">Theme</td>
+    <td class="border-1 p-2" @onclick="Name">Name 
+        @if(NameSort){<span class="oi oi-arrow-bottom"></span>} 
+        </td>
+    <td class="border-1 p-2" @onclick="Date">Date 
+        @if(DateSort){<span class="oi oi-arrow-bottom"></span>}
+        </td>
+    <td class="border-1 p-2">E-Mail</td>
+</tr>
+@foreach (var x in Tickets)
+{
+    <tr class="table table-bordered border-3" @onclick="()=>ToTicket(x.Id)">
+        <td class="border-1 p-2">@x.Theme</td>
+        <td class="border-1 p-2">@x.Name</td>
+        <td class="border-1 p-2">@x.Date</td>
+        <td class="border-1 p-2">@x.Email</td>
+    </tr>
+}
+
+@code {
+
+    bool NameSort = false;
+    bool DateSort = false;
+
+    void Name()
+    {
+        NameSort = !NameSort;
+        if (NameSort)
+        {
+            DateSort = false;
+        }
+        StateHasChanged();
+    }
+
+    void ToTicket(string id)
+    {
+        _navigator.NavigateTo($"/tickets/{id}");
+    }
+
+    void Date()
+    {
+        DateSort = !DateSort;
+        if (DateSort)
+        {
+            NameSort = false;
+        }
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        _tickets = _context.Tickets.ToList();
+        base.OnInitialized();
+    }
+
+    private List<Ticket> _tickets;
+
+    private IEnumerable<Ticket> Tickets
+    {
+        get { return  NameSort?
+            _tickets.OrderBy(x=>x.Name):
+            DateSort?
+            _tickets.OrderBy(x=>x.Date):
+                _tickets; }
+    }
+}

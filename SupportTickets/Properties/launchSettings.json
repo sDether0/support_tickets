@@ -1,0 +1,52 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:47737",
+      "sslPort": 44373
+    }
+  },
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5284",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASEHOST": "localhost",
+        "DATABASEPORT": "5432",
+        "DATABASEUSER": "postgres",
+        "DATABASEPASSWORD": "",
+        "DATABASENAME": "tickets_db"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7170;http://localhost:5284",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASEHOST": "localhost",
+        "DATABASEPORT": "5432",
+        "DATABASEUSER": "postgres",
+        "DATABASEPASSWORD": "",
+        "DATABASENAME": "tickets_db"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASEHOST": "localhost",
+        "DATABASEPORT": "5432",
+        "DATABASEUSER": "postgres",
+        "DATABASEPASSWORD": "",
+        "DATABASENAME": "tickets_db"
+      }
+    }
+  }
+}

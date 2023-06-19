@@ -1,0 +1,29 @@
+﻿@page "/tickets/{Id}"
+@using SupportTickets.Models
+@using SupportTickets.Data
+@inject TicketDBContext _context
+<!--<h5>Id: @Id</h5>-->
+@if (ticket is {})
+{
+    <h5>@ticket.Theme</h5>
+    <h6>@ticket.Name  <a href="mailto:@ticket.Email">@ticket.Email</a></h6>
+    <h6>@ticket.Text</h6>
+    <h6>@ticket.Date</h6>
+}
+else
+{
+    <p style="color:red">Ticket with this Id was not found</p>
+}
+@code {
+    [Parameter] 
+    public string Id { get; set; }
+
+    Ticket? ticket;
+
+    protected override void OnInitialized()
+    {
+        ticket = _context.Tickets.FirstOrDefault(x => x.Id == Id);
+        base.OnInitialized();
+    }
+
+}

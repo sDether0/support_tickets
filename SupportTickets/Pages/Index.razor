@@ -1,0 +1,40 @@
+﻿@page "/"
+@using SupportTickets.Models
+@using SupportTickets.Data
+@inject TicketDBContext _context
+
+<EditForm Model="NewTicket" OnValidSubmit="@Submit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>Имя</p>
+    <input class="mb-3" type="text" @bind="NewTicket.Name"/>
+
+    <p>E-Mail</p>
+    <input class="mb-3" type="text" @bind="NewTicket.Email"/>
+
+    <p>Тема (краткое описание)</p>
+    <input class="mb-3" type="text" @bind="NewTicket.Theme"/>
+
+    <p>Текст заявки</p>
+    <InputTextArea @bind-Value="NewTicket.Text" 
+                   placeholder="Опишите проблему как можно более подробно" 
+                   style="height: 80pt; width: 500pt"/>
+    <br/>
+    <input type="submit"/>
+</EditForm>
+
+@code
+{
+    private Ticket NewTicket = new () { Id = Guid.NewGuid().ToString() };
+    string TicketText="";
+
+    void Submit()
+    {
+        NewTicket.Id = Guid.NewGuid().ToString();
+        NewTicket.Date = DateTime.UtcNow;
+        _context.Tickets.Add(NewTicket);
+        _context.SaveChanges();
+        StateHasChanged();
+        NewTicket = new() { Id = Guid.NewGuid().ToString() };
+    }
+}
